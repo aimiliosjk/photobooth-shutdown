@@ -2,14 +2,15 @@ name: Shutdown PhotoBooth iPad
 
 on:
   schedule:
-    - cron: '0 18 * * 1-5'
-    - cron: '0 20 * * 6,0'
+    - cron: '*/5 * * * *'    # run every 5 minutes
   workflow_dispatch:
 
 jobs:
   shutdown:
     runs-on: ubuntu-latest
     steps:
+      - name: Log timestamp
+        run: date
       - name: Call SimpleMDM Shutdown API
         run: |
           curl https://a.simplemdm.com/api/v1/devices/1971157/shutdown \
